@@ -1,0 +1,35 @@
+.container {
+    margin: 52px;
+}
+
+.play {
+    display: flex;
+    width: 100px;
+    height: 100px;
+    border: solid 1px black;
+    text-align: center;
+    position: relative;
+    align-items: center;
+}
+
+.cancionElegida {
+
+    display: flex;
+    margin-top: 50px;
+}
+
+/* .cancionElegida img{
+    position: relative;
+} */
+.boxImage {
+
+    width: 300px;
+    height: 300px;
+}
+
+.imgCreated {
+    position:absolute;
+    width: 100px;
+    height: 100px;
+    z-index: 1;
+}

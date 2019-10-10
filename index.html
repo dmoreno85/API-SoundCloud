@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Songs</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <header>
+        <form class="buscaCanciones">
+            <h1>Elige tu grupo de música</h1>
+            <div class="input">
+                <input type="text" placeholder="Introduce canción a buscar" name="buscar">
+                <button type="submit">Buscar</button>
+            </div>
+        </form>
+    </header>
+    <!-- <button onclick="prevIt()">Prev</button> -->
+    <!-- <button onclick="playIt()">Play</button> -->
+    <!-- <button onclick="nextIt()">Next</button> -->
+    <div class="container">
+
+        <div id="div1" class="play" ondrop="drop(event)" ondragover="allowDrop(event)">Arrastrar imagen</div>
+        <!-- <img id="drag1"  src="images/Captura de pantalla de 2019-08-02 10-04-12.png" draggable="true" odragstart="drag(event)" width="336" height="69"> -->
+
+        <div class="cancionElegida" draggable="true">
+
+        </div>
+    </div>
+    <script src="https://connect.soundcloud.com/sdk/sdk-3.3.2.js" async defer></script>
+    <script src="main.js" async defer></script>
+</body>
+
+
+
+</html>
