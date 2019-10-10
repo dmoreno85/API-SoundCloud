@@ -3,12 +3,11 @@ SC.initialize({
 });
 document.querySelector('.buscaCanciones').addEventListener('submit', function (event) {
   event.preventDefault();
-
-  // console.log( event.target.buscar.value );
   SC.get('/tracks', {
       q: event.target.buscar.value
     })
     .then(function (res) {
+      document.querySelector('.cancionElegida').innerHTML="";
       for (let i = 0; i < res.length; i++) {
         let contentBox = document.createElement('div');
         contentBox.className = 'boxImage'
@@ -24,60 +23,43 @@ document.querySelector('.buscaCanciones').addEventListener('submit', function (e
         contentBox.append(imagen);
         document.querySelector('.cancionElegida').append(contentBox);
 
-        //Autoplay de cancion al buscarla(
-        let id = res[i].id
-        // console.log(id)
-          
-          
-        }
-        
-      })
+      }
+    })
+  //     function play(){
+  //     var sound = SC.stream("/tracks/"+id, function(sound){
+  //         sound.play();
+  //     });
+  // }
 
+  // function nextIt(){
+  //       var sound =SC.stream("/tracks/"+id, function(sound){
+  //             sound.next();
+  //         });
+  //     }
 
+  // function prevIt(){
+  //     var sound =SC.stream("/tracks/"+id, function(sound){
+  //         sound.prev();
+  //     });
+  // }
 
-     
-      
-      // function nextIt(){
-      //       var sound =SC.stream("/tracks/"+id, function(sound){
-      //             sound.next();
-      //         });
-      //     }
-          
-          // function prevIt(){
-            //     var sound =SC.stream("/tracks/"+id, function(sound){
-              //         sound.prev();
-              //     });
-              // }
-              
-            })
+})
+//drag&drop
+function allowDrop(event) {
+  event.preventDefault();
+}
 
-            
-            //drag&drop
+function drag(event) {
+  event.dataTransfer.setData("text", event.target.id);
+}
 
-            function allowDrop(ev) {
-              ev.preventDefault();
-            }
+function drop(event) {
+  event.preventDefault();
+  var data = event.dataTransfer.getData("text");
+  event.target.appendChild(document.getElementById(data));
+  console.log(data);
+  SC.stream('/tracks/' + data).then(function (event) {
+    event.play();
+  });
 
-            function drag(ev) {
-              
-              ev.dataTransfer.setData("text", ev.target.id);
-            }
-            
-            function drop(ev) {
-              ev.preventDefault();
-              var data = ev.dataTransfer.getData("text");
-              ev.target.appendChild(document.getElementById(data));
-              console.log(data);
-              SC.stream('/tracks/'+data).then(function (e) {
-                e.play();
-              
-              });
-              
-            }
-            //     function play(){
-            //     var sound = SC.stream("/tracks/"+id, function(sound){
-            //         sound.play();
-            //     });
-            // }
-            
-            
+}
