@@ -8,8 +8,6 @@ document.querySelector('.buscaCanciones').addEventListener('submit', function (e
   SC.get('/tracks', {
       q: event.target.buscar.value
     })
-
-
     .then(function (res) {
       for (let i = 0; i < res.length; i++) {
         let contentBox = document.createElement('div');
@@ -23,55 +21,63 @@ document.querySelector('.buscaCanciones').addEventListener('submit', function (e
         imagen.id = res[i].id;
         imagen.setAttribute("draggable", 'true');
         imagen.setAttribute("ondragstart", 'drag(event)');
-        // imagen.setAttribute("width", '100');
-        // imagen.setAttribute("heigth", '100');
-
         contentBox.append(imagen);
-
         document.querySelector('.cancionElegida').append(contentBox);
 
-        //Autoplay de cancion al buscarla
+        //Autoplay de cancion al buscarla(
+        let id = res[i].id
+        // console.log(id)
+          
+          
+        }
+        
+      })
 
-        // SC.stream('/tracks/'+id).then(function (e) {
-        //   e.play();
-
-        // });
-      }
-
-    })
 
 
-  //     function playIt(){
-  //     var sound = SC.stream("/tracks/"+id, function(sound){
-  //         sound.play();
-  //     });
-  // }
+     
+      
+      // function nextIt(){
+      //       var sound =SC.stream("/tracks/"+id, function(sound){
+      //             sound.next();
+      //         });
+      //     }
+          
+          // function prevIt(){
+            //     var sound =SC.stream("/tracks/"+id, function(sound){
+              //         sound.prev();
+              //     });
+              // }
+              
+            })
 
-  // function nextIt(){
-  //     var sound =SC.stream("/tracks/"+id, function(sound){
-  //         sound.next();
-  //     });
-  // }
+            
+            //drag&drop
 
-  // function prevIt(){
-  //     var sound =SC.stream("/tracks/"+id, function(sound){
-  //         sound.prev();
-  //     });
-  // }
+            function allowDrop(ev) {
+              ev.preventDefault();
+            }
 
-})
-//drag&drop
-
-function allowDrop(ev) {
-  ev.preventDefault();
-}
-
-function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
-}
-
-function drop(ev) {
-  ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  ev.target.appendChild(document.getElementById(data));
-}
+            function drag(ev) {
+              
+              ev.dataTransfer.setData("text", ev.target.id);
+            }
+            
+            function drop(ev) {
+              ev.preventDefault();
+              var data = ev.dataTransfer.getData("text");
+              ev.target.appendChild(document.getElementById(data));
+              console.log(data);
+              SC.stream('/tracks/'+data).then(function (e) {
+                e.play();
+              
+              });
+              
+            }
+            //     function play(){
+            //     var sound = SC.stream("/tracks/"+id, function(sound){
+            //         sound.play();
+            //     });
+            // }
+            
+            
