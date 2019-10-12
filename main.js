@@ -7,23 +7,28 @@ document.querySelector('.buscaCanciones').addEventListener('submit', function (e
       q: event.target.buscar.value
     })
     .then(function (res) {
-      document.querySelector('.cancionElegida').innerHTML="";
-      for (let i = 0; i < res.length; i++) {
-        let contentBox = document.createElement('div');
-        contentBox.className = 'boxImage'
-        let imagen = document.createElement('img');
-        imagen.className = 'imgCreated'
+    
 
-        // const genre = res[i].genre;
-        // contentBox.innerHTML = "<h3>'" + genre + "'</h3> "
-        imagen.src = res[i].artwork_url;
-        imagen.id = res[i].id;
-        imagen.setAttribute("draggable", 'true');
-        imagen.setAttribute("ondragstart", 'drag(event)');
-        contentBox.append(imagen);
-        document.querySelector('.cancionElegida').append(contentBox);
-
-      }
+        document.querySelector('.cancionElegida').innerHTML = "";
+        for (let i = 0; i < res.length; i++) {
+          let contentBox = document.createElement('div');
+          contentBox.className = 'boxImage'
+          let imagen = document.createElement('img');
+          imagen.className = 'imgCreated'
+  
+          // const genre = res[i].genre;
+          // contentBox.innerHTML = "<h3>'" + genre + "'</h3> "
+          imagen.src = res[i].artwork_url;
+          imagen.id = res[i].id;
+  
+          imagen.setAttribute("draggable", 'true');
+          imagen.setAttribute("ondragstart", 'drag(event)');
+          contentBox.append(imagen);
+          document.querySelector('.cancionElegida').append(contentBox);
+  
+        }
+      
+      return console.log('hey')
     })
   //     function play(){
   //     var sound = SC.stream("/tracks/"+id, function(sound){
@@ -51,13 +56,16 @@ function allowDrop(event) {
 
 function drag(event) {
   event.dataTransfer.setData("text", event.target.id);
+
 }
 
 function drop(event) {
   event.preventDefault();
   var data = event.dataTransfer.getData("text");
-  event.target.appendChild(document.getElementById(data));
-  console.log(data);
+
+  event.target.appendChild(document.getElementById(data)); //Aqui esta el fallo que hace que arrastre.
+
+
   SC.stream('/tracks/' + data).then(function (event) {
     event.play();
   });
