@@ -56,18 +56,17 @@ function allowDrop(event) {
 
 function drag(event) {
   event.dataTransfer.setData("text", event.target.id);
+  event.dataTransfer.setData( "image", event.target.src );
 
 }
-
-function drop(event) {
+function drop( event ) {
   event.preventDefault();
-  var data = event.dataTransfer.getData("text");
+  var id = event.dataTransfer.getData( "text" );
+  var src = event.dataTransfer.getData( "image" );
+  document.querySelector( '.play' ).innerHTML = "<img src='"+ src+"' id ='"+id+"' draggable='true' ondragstart='drag(event)'' class='img_caratula'>";
 
-  event.target.appendChild(document.getElementById(data)); //Aqui esta el fallo que hace que arrastre.
-
-
-  SC.stream('/tracks/' + data).then(function (event) {
-    event.play();
-  });
+  SC.stream( '/tracks/' + id ).then( function ( event ) {
+      event.play();
+  } );
 
 }
